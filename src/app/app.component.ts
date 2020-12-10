@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import {Model, TodoItem} from './model';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +7,27 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'ToDoListApp';
+  model = new Model();
+  isDisplay = false;
+
+  // tslint:disable-next-line:typedef
+  getName(){
+    return this.model.user;
+  }
+
+  // tslint:disable-next-line:typedef
+  getItems() {
+    if (this.isDisplay){
+      return this.model.items;
+    }
+    return this.model.items.filter(item => !item.action);
+  }
+
+  // tslint:disable-next-line:typedef
+  addItem(value) {
+    // tslint:disable-next-line:triple-equals
+    if (value != ''){
+      this.model.items.push(new TodoItem(value, false));
+    }
+  }
 }
